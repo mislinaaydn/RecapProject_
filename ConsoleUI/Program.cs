@@ -29,9 +29,9 @@ namespace ConsoleUI
             var result = carManager.GetAll();
             if (result.Success ==true)
             {
-                foreach (var car in result.Data)
+                foreach (var rental in result.Data)
                 {
-                    Console.WriteLine(car.ModelName + " / " + car.CarId);
+                    Console.WriteLine(rental.BrandId + " / " + rental.CarName);
                 }
             }
             else
