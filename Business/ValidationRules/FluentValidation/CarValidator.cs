@@ -15,13 +15,10 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.Description).MinimumLength(0);
             RuleFor(c => c.DailyPrice).NotEmpty();
             RuleFor(c => c.DailyPrice).GreaterThanOrEqualTo(100).When(c=>c.CarId==34);
-            RuleFor(c => c.CarName).Must(StartWithM).WithMessage("M harfi ile başlamalı");
+           
         }
 
-        private bool StartWithM(string arg)
-        {
-            return arg.StartsWith("M");
-        }
+       
     }
     
 

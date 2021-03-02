@@ -9,8 +9,7 @@ using System.Text;
 
 namespace Core.Aspects.Autofac.Validation
 {
-   public class Class1
-    {
+ 
         public class ValidationAspect : MethodInterception
         {
             private Type _validatorType;
@@ -35,4 +34,4 @@ namespace Core.Aspects.Autofac.Validation
             }
         }
     }
-}
+
