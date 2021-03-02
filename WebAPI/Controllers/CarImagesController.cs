@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
 
         private IFileHelper _file;
         private IWebHostEnvironment _environment;
-        public CarImagesController(ICarImageService carImageService,IFileHelper fileHelper, IWebHostEnvironment environment)
+        public CarImagesController(ICarImageService carImageService, IFileHelper fileHelper, IWebHostEnvironment environment)
         {
             _carImageService = carImageService;
             _file = fileHelper;
@@ -28,17 +28,34 @@ namespace WebAPI.Controllers
         [HttpPost("postadd")]
         public IActionResult PostAdd([FromForm] IFormFile file, [FromForm] CarImage carImage)
         {
-            var path = _environment.WebRootPath;
-            string name = file.FileName;
-            var newImage = _file.Upload(file, path, "Image");
-            if (newImage.Success)
+            var resultsGetById = _carImageService.GetById(carImage.CarId);
+            if (resultsGetById.Data.Count <= 5)
             {
-                carImage.ImagePath = newImage.Data;
-                var result2 = _carImageService.Add(carImage);
-                return Ok(result2.Message);
+                var path = _environment.WebRootPath;
+                string name = file.FileName;
+                var newImage = _file.Upload(file, path, "Image");
+                if (newImage.Success)
+                {
+                    carImage.ImagePath = newImage.Data;
+                    var result2 = _carImageService.Add(carImage);
+                    return Ok(result2.Message);
+                }
+                return BadRequest(newImage);
             }
+            return BadRequest("bu arabaya ait maximum görüntü sayısına ulastınız");
 
-            return BadRequest(newImage);
+
+        }
+        [HttpDelete("deleted")]
+        public IActionResult Deleted(int Id)
+        {
+            var path = _environment.WebRootPath;
+            var result = _carImageService.Delete(path, Id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
 
     }

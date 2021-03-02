@@ -23,26 +23,31 @@ namespace Business.Concrete
 
         public IResult Add(CarImage carImage)
         {
+
             carImage.Date = DateTime.Now;
             _carImageDal.Add(carImage);
-            return new SuccessResult(Messages.CarImageAdded);//mesajı burdan göndermemiz lazım
+            return new SuccessResult(Messages.CarImageAdded);
+          
          
         }
 
         public IResult Delete(string path,int carImageId)
         {
-            var result = _carImageDal.Get(p => p.Id == carImageId);
+            var result = _carImageDal.Get(p => p.Id == carImageId);                  
             if (result!=null)
             {
-                var fileResult = _fileHelper.Delete(path, result.ImagePath);
-                if (fileResult.Success)
-                {
-                    _carImageDal.Delete(result);
-                    return new SuccessResult("Silme işlemi başarılı");
-                }
-                return new ErrorResult("Silme işlemi başarısız");
+               
+                       
+                    var fileResult = _fileHelper.Delete(path, result.ImagePath);
+                    if (fileResult.Success)
+                    {
+                        _carImageDal.Delete(result);
+                        return new SuccessResult(Messages.CarImageDeletedSuccess);
+                    }
+                    return new ErrorResult(Messages.CarImageDeletedError);
+                
             }
-            return new ErrorResult("Silme işlemi basarısız");//buradeğistirirsizsuccess olması ger
+            return new ErrorResult(Messages.CarImageDeletedError);
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -52,7 +57,8 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetById(int carImageId)
         {
-            throw new NotImplementedException();
+            var result = _carImageDal.GetAll(p => p.CarId == carImageId);
+            return new SuccessDataResult<List<CarImage>>(result);
         }
 
         public IResult Update(CarImage carImage)

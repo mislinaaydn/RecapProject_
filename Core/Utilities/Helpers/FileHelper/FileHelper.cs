@@ -11,7 +11,7 @@ namespace Core.Utilities.Helpers.FileHelper
         {
             var resultFileRotates = FileExtensionRotates(fileType);//burada ilk olarak dosyatipi varmı sistemde onu kontrol ederiz 
             if (resultFileRotates.Success)
-            {//varsa burası çalısır
+            {//varsa burası çalısır (1)
                 var resultFileControl = FileControl(file, resultFileRotates.Data);//burada gelen dosyayı kontrol ederiz bakarız bama resim formatındamı değilse hata veririz görüntü formatındaysa görüntünün yeni ismi gelir
                 if (resultFileControl.Success)
                 {
@@ -25,7 +25,7 @@ namespace Core.Utilities.Helpers.FileHelper
                 }
                 return new ErrorDataResult<string>(resultFileControl.Message);
             }
-            return new ErrorDataResult<string>(resultFileRotates.Message);//yoksa burası
+            return new ErrorDataResult<string>(resultFileRotates.Message);//yoksa burası(2)
 
         }
 
@@ -56,7 +56,7 @@ namespace Core.Utilities.Helpers.FileHelper
             var getFileExtensions = Path.GetExtension(file.FileName).ToLower();
             for (int i = 1; i < fileExtentions.Length; i++)
             {
-                if (fileExtentions[i].ToLower() == getFileExtensions)//buradagelen dosya türünü kontrol ediyoruz
+                if (fileExtentions[i].ToLower() == getFileExtensions)//burada gelen dosya türünü kontrol ediyoruz
                 {
                     string fileName = "\\" + fileExtentions[0] + "\\" + Guid.NewGuid().ToString() + getFileExtensions;//buradadosyanın yeni isminin verildiği kısım
                     return new SuccessDataResult<string>(fileName);
