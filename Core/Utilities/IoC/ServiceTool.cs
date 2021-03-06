@@ -9,10 +9,11 @@ namespace Core.Utilities.IoC
     {
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        public static IServiceCollection Create(IServiceCollection services)
+        public static IServiceCollection Create(IServiceCollection service)
         {
-            ServiceProvider = services.BuildServiceProvider();
-            return services;
+            ServiceProvider = service.BuildServiceProvider();
+            return service;
         }
     }
 }
+
