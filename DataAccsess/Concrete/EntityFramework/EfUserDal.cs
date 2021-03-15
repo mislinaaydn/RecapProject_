@@ -5,10 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccsess.Concrete.EntityFramework
 {
-    public class EfUserDal : EfEntityRepositoryBase <User, CarDataContext>, IUserDal
+    public class EfUserDal : EfEntityRepositoryBase<User, CarDataContext>, IUserDal //bu da implement istedi, interfaceye bisey eklersen ona bagli olan tum classlara da implement etmelisin I olarak baslayan ana siniflarimiz
     {
         public List<OperationClaim> GetClaims(User user)
         {
@@ -22,6 +24,11 @@ namespace DataAccsess.Concrete.EntityFramework
                 return result.ToList();
 
             }
+        }
+
+        public List<UserDetailDto> GetUserDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }

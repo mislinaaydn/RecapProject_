@@ -16,9 +16,9 @@ namespace ConsoleUI
         private static void ColorTest()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
-                Console.WriteLine(color.ColorId  );
+                Console.WriteLine(color.ColorId  );//bu mu projen evet
             }
         }
 
@@ -31,7 +31,7 @@ namespace ConsoleUI
             {
                 foreach (var rental in result.Data)
                 {
-                    Console.WriteLine(rental.BrandId + " / " + rental.CarName);
+                    Console.WriteLine(rental.BrandId + " / " + rental.BrandId);
                 }
             }
             else

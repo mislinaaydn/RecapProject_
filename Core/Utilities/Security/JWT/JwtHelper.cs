@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Core.Utilities.Security.JWT
 {
-    public class JwtHelper : ITokenHelper
+    public class JwtHelper : ITokenHelper // bu da implement istedi
     {
         public IConfiguration Configuration { get; }
         private TokenOptions _tokenOptions;
@@ -63,6 +63,11 @@ namespace Core.Utilities.Security.JWT
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
 
             return claims;
+        }
+
+        public object CreateToken(User user, object claims)
+        {
+            throw new NotImplementedException();
         }
     }
 }

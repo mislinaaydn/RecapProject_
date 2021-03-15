@@ -46,13 +46,13 @@ namespace Core.DataAccess.EntityFramework
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
-            using (TContext context = new TContext())
+            using (TContext context = new TContext()) //neden car userId gidiyor ki orayla isimiz yok
             {
                 return filter == null
                     ? context.Set<TEntity>().ToList()
                     : context.Set<TEntity>().Where(filter).ToList();
-            }
-        }
+            }//cars da userId yok ki bir yerde implement hatasi olmus
+        }//hem customer da hem user da user ıd var ondan olabilir mi
 
         public List<TEntity> GetById()
         {

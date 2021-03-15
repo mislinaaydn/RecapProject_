@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constans;
+using Core.Utilities.Results;
 using DataAccsess.Abstract;
 using Entities.Concrete;
 using System;
@@ -34,9 +36,9 @@ namespace Business.Concrete
             Console.WriteLine("Marka silindi.");
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
         public Brand getById(int BrandId)

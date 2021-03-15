@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constans;
+using Core.Utilities.Results;
 using DataAccsess.Abstract;
 using Entities.Concrete;
 using System;
@@ -26,9 +28,9 @@ namespace Business.Concrete
             _colorDal.Delete(color);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
         }
 
         public Color GetById(int id)

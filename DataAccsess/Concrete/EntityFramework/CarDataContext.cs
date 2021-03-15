@@ -17,9 +17,9 @@ namespace DataAccsess.Concrete.EntityFramework
         public DbSet<CarImage> CarImages { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Rental> Rentals { get; set; }
+        public DbSet<User> Users { get; set; }// buranin tamami senin veritabani tablolarinla ayni olmali
+        public DbSet<Customer> Customers { get; set; }// yani bu data contexi hepsinde kullanabiliriz
+        public DbSet<Rental> Rentals { get; set; }//car data context yerine projecontext yazsan kafan karismazdi
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<OperationClaim> OperationClaims{get ; set;}
     }

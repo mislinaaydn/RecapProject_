@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.Entities.Concrete
+﻿namespace Core.Entities.Concrete
 {
     public class User : IEntity
     {
@@ -14,6 +10,4 @@ namespace Core.Entities.Concrete
         public byte[] PasswordHash { get; set; }
         public bool Status { get; set; }
     }
-
 }
-

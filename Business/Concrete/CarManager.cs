@@ -31,7 +31,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.CarName.Length < 2)
+            if (car.ModelName.Length < 2) //bu da ismiydi modeli yaptim
             {
                 return new ErrorResult(Messages.CarNameInvalid);
             }
@@ -49,7 +49,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
-            return  new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed);
         }
         [PerformanceAspect(10)]
         public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
@@ -76,7 +76,7 @@ namespace Business.Concrete
         public IResult AddTransactionalTest(Car car)
         {
             Add(car);
-            if (car.DailyPrice<300)
+            if (car.DailyPrice<100)
             {
                 throw new Exception("");
             }

@@ -1,12 +1,13 @@
 ﻿using Core.DataAccsess;
 using Entities.Concrete;
-using System;
+using Entities.DTOs;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccsess.Abstract
 {
     public interface ICustomerDal:IEntityRepository<Customer>
+
     {
+        List<CustomerDetailDto> GetCarDetails();
     }
 }
