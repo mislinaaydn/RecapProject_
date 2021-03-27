@@ -14,19 +14,6 @@ namespace DataAccsess.Concrete.EntityFramework
 {
     public class EfColorDal : EfEntityRepositoryBase<Color, CarDataContext>, IColorDal//demin olusturdugumuz kizdi
     {
-        public List<ColorDetailDto> GetCarDetails()
-        {
-            using (CarDataContext context = new CarDataContext())
-            {
-                var result = from r in context.Colors
-                             select new ColorDetailDto
-                             {
-                                 ColorId = r.ColorId,
-                                 ColorName = r.ColorName
-                             };
-               return result.ToList();
-            }
-            
-        }
+      
     }
 }

@@ -25,10 +25,5 @@ namespace DataAccsess.Concrete.EntityFramework
 
             }
         }
-
-        public List<UserDetailDto> GetUserDetails()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

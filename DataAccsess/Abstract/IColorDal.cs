@@ -9,6 +9,6 @@ namespace DataAccsess.Abstract
 {
     public interface IColorDal : IEntityRepository<Color>
     {
-        List<ColorDetailDto> GetCarDetails();
+       
     }
 }

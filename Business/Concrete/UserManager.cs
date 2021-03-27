@@ -21,22 +21,22 @@ namespace Business.Concrete
 
         public void Add(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Add(user);
         }
 
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.Listed);
         }
-
-        User IUserService.GetByMail(string email)
+        //buraları public yapmamışşın
+       public User GetByMail(string email)
         {
-            throw new NotImplementedException();
+            return _userDal.Get(u => u.Email == email);
         }
 
-        List<OperationClaim> IUserService.GetClaims(User user)
+      public  List<OperationClaim> GetClaims(User user)
         {
-            throw new NotImplementedException();
+            return _userDal.GetClaims(user);
         }
     }
 }
