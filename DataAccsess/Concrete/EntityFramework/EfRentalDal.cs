@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DataAccsess.Concrete.EntityFramework
 {
-    public class EfRentalDal : EfEntityRepositoryBase<Rental, CarDataContext>, IRentalDal  //bu bir yerde nreferans aliyor hatali cagiriyor
+    public class EfRentalDal : EfEntityRepositoryBase<Rental, CarDataContext>, IRentalDal  
     {
         public List<RentalDetailDto> GetRentalDetails()
         {

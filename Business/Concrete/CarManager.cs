@@ -27,8 +27,8 @@ namespace Business.Concrete
             _carDal = carDal;
         }
         [CacheRemoveAspect("ICarService.Get")]
-        //[SecuredOperation("car.add , admin")]
-       // [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("car.add , admin")]
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             if (car.ModelName.Length < 2) //bu da ismiydi modeli yaptim
@@ -76,11 +76,7 @@ namespace Business.Concrete
         public IResult AddTransactionalTest(Car car)
         {
             Add(car);
-            if (car.DailyPrice<100)
-            {
-                throw new Exception("");
-            }
-            Add(car);
+           
             return null;
         }
 

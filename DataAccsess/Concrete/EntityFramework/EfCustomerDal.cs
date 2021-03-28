@@ -21,7 +21,7 @@ namespace DataAccsess.Concrete.EntityFramework
                                  CustomerId = u.CustomerId,
                                  CompanyName = u.CompanyName,
                              };
-                return result.ToList();//bunlar dogru ama web sitende veya mobilde istenmeyecekse olusturma bunlari
+                return result.ToList();
             }
 
         }

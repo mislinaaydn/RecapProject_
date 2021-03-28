@@ -23,7 +23,7 @@ namespace DataAccsess.Concrete.EntityFramework
                              on c.BrandId equals b.BrandId
 
                              join cl in context.Colors
-                             on c.ColorId equals cl.ColorId //burayi yanlis anlamissin, burasi sana gore sekil almaz. burada Id numara geldigi icin sadece gelen numarayi name olarak getir demek icin. sana yanlis veri geliyorsa onu burada onarirsin, olmayan seyleri cagiramazsin
+                             on c.ColorId equals cl.ColorId 
 
                              select new CarDetailDto
                              {
