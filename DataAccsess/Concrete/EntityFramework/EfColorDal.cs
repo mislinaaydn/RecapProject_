@@ -12,7 +12,7 @@ using System.Linq;//bu eklenmemis diye context alti ciziliydi,şimdi bütün ef 
 
 namespace DataAccsess.Concrete.EntityFramework
 {
-    public class EfColorDal : EfEntityRepositoryBase<Color, CarDataContext>, IColorDal//demin olusturdugumuz kizdi
+    public class EfColorDal : EfEntityRepositoryBase<Color, CarDataContext>, IColorDal
     {
       
     }

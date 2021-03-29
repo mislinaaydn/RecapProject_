@@ -26,12 +26,14 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
+
+
         [CacheRemoveAspect("ICarService.Get")]
-        [SecuredOperation("car.add , admin")]
+       // [SecuredOperation("car.add , admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.ModelName.Length < 2) //bu da ismiydi modeli yaptim
+            if (car.ModelName.Length < 2)
             {
                 return new ErrorResult(Messages.CarNameInvalid);
             }

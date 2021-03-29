@@ -25,5 +25,8 @@ namespace Business.Constans
         public static string UserListed ="Kullanıcılar listelendi" ;
 
         public static string Listed { get; internal set; }
+        public static string SuccessAdded { get; internal set; }
+        public static string SuccessDeleted { get; internal set; }
+        public static string SuccessListed { get; internal set; }
     }
 }
