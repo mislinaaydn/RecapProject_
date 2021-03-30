@@ -54,16 +54,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed);
         }
         [PerformanceAspect(10)]
-        public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
-        {
-            return  new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max));
-        }
-        
-        public IDataResult<List<Car>> GetByModelYear(string year)
-        {
-            throw new NotImplementedException();
-        }
-
+    
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
@@ -82,8 +73,18 @@ namespace Business.Concrete
             return null;
         }
 
+        public IDataResult<List<CarDetailDto>> GetAllByColorId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == id), Messages.SuccessListed);
+        }
+
+        public IDataResult<List<CarDetailDto>> GetAllByBrandId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandId == id), Messages.SuccessListed);
+        }
     }
 }
+
 
 
 
