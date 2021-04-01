@@ -24,9 +24,12 @@ namespace Business.Constans
 
         public static string UserListed ="Kullanıcılar listelendi" ;
 
-        public static string Listed { get; internal set; }
-        public static string SuccessAdded { get; internal set; }
-        public static string SuccessDeleted { get; internal set; }
-        public static string SuccessListed { get; internal set; }
+        public static string Listed = "Listelendi";
+        public static string SuccessAdded = "Ekleme başarılı";
+        public static string SuccessDeleted = "Silme başarılı";
+        public static string SuccessListed = "Listeleme başarılı";
+        public static string CarImageLimitExceeded = "Maksimum resim ekleme sınırına ulaşıldı(5)";
+
+        public static string CarImageUpdated = "Resim güncellendi";
     }
 }

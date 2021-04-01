@@ -14,49 +14,80 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class CarImagesController : ControllerBase
-    {
-        private ICarImageService _carImageService;
+    
+        {
+            ICarImageService _carImageService;
 
-        private IFileHelper _file;
-        private IWebHostEnvironment _environment;
-        public CarImagesController(ICarImageService carImageService, IFileHelper fileHelper, IWebHostEnvironment environment)
-        {
-            _carImageService = carImageService;
-            _file = fileHelper;
-            _environment = environment;
-        }
-        [HttpPost("postadd")]
-        public IActionResult PostAdd([FromForm] IFormFile file, [FromForm] CarImage carImage)
-        {
-            var resultsGetById = _carImageService.GetById(carImage.CarId);
-            if (resultsGetById.Data.Count <= 5)
+            public CarImagesController(ICarImageService carImageService)
             {
-                var path = _environment.WebRootPath;
-                string name = file.FileName;
-                var newImage = _file.Upload(file, path, "Image");
-                if (newImage.Success)
+                _carImageService = carImageService;
+            }
+            [HttpGet("getall")]
+            public IActionResult GetAll()
+            {
+                var result = _carImageService.GetAll();
+                if (result.Success)
                 {
-                    carImage.ImagePath = newImage.Data;
-                    var result2 = _carImageService.Add(carImage);
-                    return Ok(result2.Message);
+                    return Ok(result);
                 }
-                return BadRequest(newImage);
+                return BadRequest(result.Message);
             }
-            return BadRequest("bu arabaya ait maximum görüntü sayısına ulastınız");
-
-
-        }
-        [HttpDelete("deleted")]
-        public IActionResult Deleted(int Id)
-        {
-            var path = _environment.WebRootPath;
-            var result = _carImageService.Delete(path, Id);
-            if (result.Success)
+            [HttpGet("getbyid")]
+            public IActionResult GetById([FromForm(Name = ("Id"))] int Id)
             {
-                return Ok(result);
+                var result = _carImageService.Get(Id);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(result.Message);
             }
-            return BadRequest(result);
-        }
+            [HttpPost("add")]
+            public IActionResult Add([FromForm(Name = ("Image"))] IFormFile file, [FromForm] CarImage carImage)
+            {
 
-    }
+                var result = _carImageService.Add(file, carImage);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(result);
+            }
+
+
+            [HttpPost("update")]
+            public IActionResult Update([FromForm(Name = ("Image"))] IFormFile file, [FromForm(Name = ("Id"))] int Id)
+            {
+                var carImage = _carImageService.Get(Id).Data;
+                var result = _carImageService.Update(file, carImage);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(result);
+            }
+
+            [HttpPost("delete")]//tum geri donusleri post ile yapiyoruz cunku business katmanimizin kendi kurali var zaten
+            public IActionResult Delete(CarImage carImage)
+            {
+                var result = _carImageService.Delete(carImage);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(result);
+            }
+
+            [HttpGet("getimagesbycarid")]
+            public IActionResult GetImagesByCarId(int carId)
+            {
+                var result = _carImageService.GetImagesByCarId(carId);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(result.Message);
+            }
+
+        }
 }

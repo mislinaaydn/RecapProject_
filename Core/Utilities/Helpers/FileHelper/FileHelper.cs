@@ -5,64 +5,61 @@ using System.IO;
 
 namespace Core.Utilities.Helpers.FileHelper
 {
-    public class FileHelper : IFileHelper
+    public class FileHelper //: IFileHelper
     {
-        public IDataResult<string> Upload(IFormFile file, string path, string fileType)//burası dosya upload için parametreler
+
+        public static string Add(IFormFile file)
         {
-            var resultFileRotates = FileExtensionRotates(fileType);//burada ilk olarak dosyatipi varmı sistemde onu kontrol ederiz 
-            if (resultFileRotates.Success)
-            {//varsa burası çalısır (1)
-                var resultFileControl = FileControl(file, resultFileRotates.Data);//burada gelen dosyayı kontrol ederiz bakarız bama resim formatındamı değilse hata veririz görüntü formatındaysa görüntünün yeni ismi gelir
-                if (resultFileControl.Success)
+            var sourcepath = Path.GetTempFileName();
+            if (file.Length > 0)
+            {
+                using (var stream = new FileStream(sourcepath, FileMode.Create))
                 {
-                    string replaceFileName = resultFileControl.Data;
-                    var files = Path.Combine(path + replaceFileName);//burada dosyanın yolunu ve kendisinin bir path ini olustururuz kaydedilecek yolunu
-                    using (var fileStream = new FileStream(files, FileMode.Create))//burada dosyayı oluştur deriz
-                    {
-                        file.CopyTo(fileStream);//burada dosyanın bilgilerini kopyalarız sisteme 
-                    }
-                    return new SuccessDataResult<string>(replaceFileName.Replace('\\', '/'));//kopyalama islemi başarılı //anlamadığınız biyer varmı hayır yok çok iyi anladım
+                    file.CopyTo(stream);
                 }
-                return new ErrorDataResult<string>(resultFileControl.Message);
             }
-            return new ErrorDataResult<string>(resultFileRotates.Message);//yoksa burası(2)
-
+            var result = newPath(file);
+            File.Move(sourcepath, result.newPath);
+            return result.Path2.Replace("\\", "/");
         }
-
-        public IResult Delete(string path,string file)
+        public static IResult Delete(string path)
         {
-            System.IO.File.Delete(path+file);
+            path = path.Replace("/", "\\");
+            try
+            {
+                File.Delete(path);
+            }
+            catch (Exception exception)
+            {
+                return new ErrorResult(exception.Message);
+            }
+
             return new SuccessResult();
         }
-
-        public IResult Move(string oldPath, string newPath)
+        public static string Update(string sourcePath, IFormFile file)
         {
-            throw new NotImplementedException();
-        }
-
-
-        public IDataResult<string[]> FileExtensionRotates(string FileType)//bu method dosya uzantıları bulunduruyor dosya tipine göre uzantı döndürür
-        {
-            if (FileType.ToUpper() == "IMAGE")//burada kontrol ederiz dosya tipi IMAGE SE 
+            var result = newPath(file);
+            if (sourcePath.Length > 0)
             {
-                string[] extensions = { "Images", ".jpg", ".tif", ".png", ".jpeg", ".bmp" };//BU UZANTILARI DÖNDÜR
-                return new SuccessDataResult<string[]>(extensions);
-            }//BURAYA DAHAFAZLA DOSYATİPİ VE UZANTISI GÖNDERE BİLİRSİN bize lazım olan sadece image oyüzden sadece image döndürüyoruz
-            return new ErrorDataResult<string[]>();
-        }
-
-        public IDataResult<string> FileControl(IFormFile file, string[] fileExtentions)//burası dosya kontrol ve dosya isimlendirme
-        {
-            var getFileExtensions = Path.GetExtension(file.FileName).ToLower();
-            for (int i = 1; i < fileExtentions.Length; i++)
-            {
-                if (fileExtentions[i].ToLower() == getFileExtensions)//burada gelen dosya türünü kontrol ediyoruz
+                using (var stream = new FileStream(result.newPath, FileMode.Create))
                 {
-                    string fileName = "\\" + fileExtentions[0] + "\\" + Guid.NewGuid().ToString() + getFileExtensions;//buradadosyanın yeni isminin verildiği kısım
-                    return new SuccessDataResult<string>(fileName);
+                    file.CopyTo(stream);
                 }
             }
-            return new ErrorDataResult<string>("Gönderilen dosya türü hatalı !");
+            File.Delete(sourcePath);
+            return result.Path2.Replace("\\", "/");
+        }
+        public static (string newPath, string Path2) newPath(IFormFile file)
+        {
+            FileInfo ff = new FileInfo(file.FileName);
+            string fileExtension = ff.Extension;
+
+            string path = Environment.CurrentDirectory + @"\wwwroot\";
+            var newPath = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
+            //string webPath = string.Format("/Images/{0}",newPath);
+
+            string result = $@"{path}\{newPath}";
+            return (result, $"{newPath}");
         }
     }
 }

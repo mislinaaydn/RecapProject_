@@ -17,22 +17,30 @@ namespace DataAccsess.Concrete.EntityFramework
         {
             using (CarDataContext context = new CarDataContext())
             {
-                IQueryable<CarDetailDto> result = from c in filter is null ? context.Cars : context.Cars.Where(filter)
+                var result = from c in context.Cars  //filter is   null ? context.Cars : context.Cars.Where(filter)
+
                              join b in context.Brands
                              on c.BrandId equals b.BrandId
+
                              join cl in context.Colors
-                             on c.ColorId equals cl.ColorId 
+                             on c.ColorId equals cl.ColorId
+
+                             join i in context.CarImages //suraya filtre uygulamak lazim, degerler bos ise default.jpg gitsin diye                             
+                             on c.CarId equals i.CarId 
 
                              select new CarDetailDto
                              {
                                  CarId = c.CarId,
                                  BrandName = b.BrandName,
                                  ColorName = cl.ColorName,
-                                 ModelName = c.ModelName,                                 
+                                 ModelName = c.ModelName,
                                  DailyPrice = c.DailyPrice,
                                  Description = c.Description,
                                  ModelYear = c.ModelYear,
-                             };
+                                 CarImageDate = i.Date,
+                                 CarImagePath = i.ImagePath
+                                 //CarImageDate = (from carImage in context.CarImages where carImage.CarId == c.CarId select carImage.Date).FirstOrDefault().Da
+                             }; //IQueryable<CarDetailDto>
 
                 return result.ToList();
             }
