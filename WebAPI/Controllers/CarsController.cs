@@ -37,11 +37,21 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
+        //burada tanımlanmamış
         [HttpGet("getcardetails")]
         public IActionResult GetCarDetails()
         {
             var result = _carService.GetCarDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getcardetail")]
+        public IActionResult GetCarDetail(int carId)
+        {
+            var result = _carService.GetCarDetail(carId);
             if (result.Success)
             {
                 return Ok(result);

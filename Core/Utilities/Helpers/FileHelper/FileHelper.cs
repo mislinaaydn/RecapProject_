@@ -54,12 +54,11 @@ namespace Core.Utilities.Helpers.FileHelper
             FileInfo ff = new FileInfo(file.FileName);
             string fileExtension = ff.Extension;
 
-            string path = Environment.CurrentDirectory + @"\wwwroot\";
+            string path = Environment.CurrentDirectory + @"\wwwroot\images";
             var newPath = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
-            //string webPath = string.Format("/Images/{0}",newPath);
 
             string result = $@"{path}\{newPath}";
-            return (result, $"{newPath}");
+            return (result, $"\\Images\\{newPath}");
         }
     }
 }
