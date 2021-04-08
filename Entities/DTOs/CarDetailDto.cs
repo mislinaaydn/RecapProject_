@@ -8,6 +8,7 @@ namespace Entities.DTOs
    public class CarDetailDto :IDto
     {
         public int CarId { get; set; }
+        public string Name { get; set; }
         public string ColorName { get; set; }
         public string BrandName { get; set; }
         public string ModelName { get; set; }
@@ -16,6 +17,9 @@ namespace Entities.DTOs
         public int ModelYear { get; set; }
         public string CarImagePath { get; set; }
         public string CarImageDate { get; set; }
+   
+    
+    
     }
 }
 

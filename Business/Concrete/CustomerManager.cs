@@ -39,15 +39,16 @@ namespace Business.Concrete
 
     
 
-        public IDataResult<Customer> GetUserId(int userıd)
+        public IDataResult<List<Customer>>GetById(int customerId)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(c => c.CustomerId == customerId), Messages.SuccessListed);
         }
 
         public IResult Update(Customer customer)
 
 {
-            throw new NotImplementedException();
+            _customerDal.UpDate(customer);
+            return new SuccessResult(Messages.SuccessUpdated);
 
         }
     }
