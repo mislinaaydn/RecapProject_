@@ -29,7 +29,7 @@ namespace Business.Concrete
 
 
         [CacheRemoveAspect("ICarService.Get")]
-       // [SecuredOperation("car.add , admin")]
+        [SecuredOperation("car.add , admin,")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -46,7 +46,8 @@ namespace Business.Concrete
         
         public IResult Delete(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Delete(car);
+            return new SuccessResult(Messages.CarDeleted);
         }
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
@@ -60,11 +61,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        [CacheRemoveAspect("ICarService.Get")]
-        [ValidationAspect(typeof(CarValidator))]
+        
         public IResult Update(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.UpDate(car);
+            return new SuccessResult(Messages.SuccessUpdated);
         }
         [TransactionScopeAspect]
         public IResult AddTransactionalTest(Car car)

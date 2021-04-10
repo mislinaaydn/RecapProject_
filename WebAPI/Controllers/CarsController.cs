@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        //burada tanımlanmamış
+        
         [HttpGet("getcardetails")]
         public IActionResult GetCarDetails()
         {
@@ -118,3 +118,4 @@ namespace WebAPI.Controllers
         }
     }
 }
+

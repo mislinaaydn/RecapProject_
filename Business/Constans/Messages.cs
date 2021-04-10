@@ -31,5 +31,7 @@ namespace Business.Constans
 
         public static string SuccessfullyPaid = "Ödeme başarılı";
         public static string CardAdded ="Kart eklendi";
+
+        public static string CarDeleted = "Araç silindi";
     }
 }

@@ -9,6 +9,7 @@ namespace Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        
         private IUserService _userService;
         private ITokenHelper _tokenHelper;
 
@@ -31,10 +32,11 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-            _userService.Add(user);
-            return new SuccessDataResult<User>(user, "Kayıt oldu");
-        }
 
+            _userService.Add(user);
+            return new SuccessDataResult<User>(user, "Kayıt Olundu");
+        }
+        //burda olan mesajları veriyor * burayı okuyor evet ama vt ye neden kaydetmiyor diye bakıyorum 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
@@ -45,7 +47,7 @@ namespace Business.Concrete
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
-                return new ErrorDataResult<User>("Parola hatası");
+                return new ErrorDataResult<User>("Parola Hatalı");
             }
 
             return new SuccessDataResult<User>(userToCheck, "Başarılı giriş");
@@ -55,7 +57,7 @@ namespace Business.Concrete
         {
             if (_userService.GetByMail(email) != null)
             {
-                return new ErrorResult("Kullanıcı mevcut");
+                return new ErrorResult("Kullanıcı Mevcut");
             }
             return new SuccessResult();
         }
@@ -64,7 +66,8 @@ namespace Business.Concrete
         {
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
-            return new SuccessDataResult<AccessToken>(accessToken, "Token oluşturuldu");
+            return new SuccessDataResult<AccessToken>(accessToken, "Token Oluşturuldu");
+
         }
     }
 }

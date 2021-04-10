@@ -26,15 +26,15 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CardManager>().As<ICardService>();
             builder.RegisterType<EfCardDal>().As<ICardDal>();
 
-            builder.RegisterType<UserManager>().As<IUserService>();
-            builder.RegisterType<EfUserDal>().As<IUserDal>();
+            builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
+            builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
             builder.RegisterType<CarImageManager>().As<ICarImageService>();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>();
 
             builder.RegisterType<CarManager>().As<ICarService>();
 
-            //builder.RegisterType<FileHelper>().As<IFileHelper>();
+          
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
             builder.RegisterType<EfCarDal>().As<ICarDal>();
 
