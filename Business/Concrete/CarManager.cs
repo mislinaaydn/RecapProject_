@@ -28,15 +28,11 @@ namespace Business.Concrete
         }
 
 
-        [CacheRemoveAspect("ICarService.Get")]
-        [SecuredOperation("car.add , admin,")]
-        [ValidationAspect(typeof(CarValidator))]
+        //[CacheRemoveAspect("ICarService.Get")]
+        [SecuredOperation("car.add,admin,")]
+        //[ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.ModelName.Length < 2)
-            {
-                return new ErrorResult(Messages.CarNameInvalid);
-            }
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);

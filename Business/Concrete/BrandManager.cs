@@ -17,23 +17,16 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
-            if (brand.BrandName.Length >= 2)
-            {
-                _brandDal.Add(brand);
-                Console.WriteLine("Yeni marka eklendi.");
-            }
-            else
-            {
-                Console.WriteLine("Minimum iki karakter girmelisiniz.");
-            }
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.BrandAdded);
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            Console.WriteLine("Marka silindi.");
+            return new SuccessResult(Messages.BrandDeleted);
         }
 
         public IDataResult<List<Brand>> GetAll()
@@ -41,15 +34,17 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
-        public Brand getById(int BrandId)
+        public IDataResult<List<Brand>> GetById(int brandId)
         {
-            return _brandDal.Get(c => c.BrandId == BrandId);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(c => c.BrandId == brandId), Messages.SuccessListed);
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             _brandDal.UpDate(brand);
-            Console.WriteLine("Marka güncellendi.");
+            return new SuccessResult(Messages.BrandUpdated);
         }
     }
-}
+
+       
+    }

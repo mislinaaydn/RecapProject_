@@ -33,10 +33,10 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>();
 
             builder.RegisterType<CarManager>().As<ICarService>();
-
-          
-            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
             builder.RegisterType<EfCarDal>().As<ICarDal>();
+
+            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
+           
 
             builder.RegisterType<ColorManager>().As<IColorService>();
             builder.RegisterType<EfColorDal>().As<IColorDal>();

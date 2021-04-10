@@ -6,9 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
-using System.Linq;//bu eklenmemis diye context alti ciziliydi,şimdi bütün ef lere yazmalıyız de mi 
-//normalde evet, ama eger EfCarDal veya bu listede istedigin sey varsa bunlari kullanirsin yeterli olur
-//millet hep onu kullanmis kimse doldurmamis buralari nedense 
+using System.Linq;
 
 namespace DataAccsess.Concrete.EntityFramework
 {
