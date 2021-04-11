@@ -39,11 +39,32 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getbyemail")]
+        public IActionResult GetByMail(string email)
+        {
+            var result = _userService.GetUserByMail(email);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
         [HttpPost("add")]
         public IActionResult Add(User user)
         {
             var result = _userService.Add(user);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpPost("addfindexpoint")]
+        public IActionResult AddFindexPoint([FromBody] int userId)
+        {
+            //frombody ne içn ilkel tiplerde ama şuan eklenmedi yani buraya hiç düşmedi breakpoint aksi halde gönderemiyoruz 
+            var result = _userService.AddFindexPoint(userId);
             if (result.Success)
             {
                 return Ok(result);

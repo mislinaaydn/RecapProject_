@@ -17,9 +17,10 @@ namespace Entities.DTOs
         public int ModelYear { get; set; }
         public string CarImagePath { get; set; }
         public string CarImageDate { get; set; }
-   
-    
-    
+        public int MinFindex { get; set; }
+
+
+
     }
 }
 

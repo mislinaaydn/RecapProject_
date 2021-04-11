@@ -25,6 +25,24 @@ namespace Business.Concrete
             return new SuccessResult(Messages.SuccessAdded);
         }
 
+        public IResult AddFindexPoint(int userId)
+        {
+            var result = GetUserById(userId);
+
+            if (result.Data.FindexPoint < 1900)
+            {
+                result.Data.FindexPoint += 20;
+                Update(result.Data);
+            }
+            else
+            {
+                return new ErrorResult(Messages.findexPointMax);
+            }
+
+
+            return new SuccessResult(Messages.findexPointAdd);
+        }
+
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
@@ -49,6 +67,16 @@ namespace Business.Concrete
         public List<OperationClaim> GetClaims(User user)
         {
             return _userDal.GetClaims(user);
+        }
+
+        public IDataResult<User> GetUserById(int userId)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
+        }
+
+        public IDataResult<User> GetUserByMail(string email)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(user => user.Email == email));
         }
 
         public IResult Update(User user)

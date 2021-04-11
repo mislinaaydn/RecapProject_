@@ -8,10 +8,14 @@ namespace Business.Abstract
     {
         List<OperationClaim> GetClaims(User user);
         IDataResult<List<User>> GetById(int userId);
-        IResult Add( User user);
+        IDataResult<User> GetUserById(int userId);
+        IResult Add(User user);
         IResult Update(User user);
         IResult Delete(User user);
         IDataResult<List<User>> GetAll();
-        User GetByMail( string email);
+        User GetByMail(string email);
+        IDataResult<User> GetUserByMail(string email);
+
+        IResult AddFindexPoint(int userId);
     }
 }
